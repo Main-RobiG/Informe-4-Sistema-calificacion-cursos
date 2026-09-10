@@ -90,17 +90,75 @@ class UserModel {
     return this.findById(result.insertId);
   }
 
-  static async updatePassword(id, passwordHash) {
+  static async updatePassword(
+    id,
+    passwordHash
+  ) {
     const [result] = await pool.query(
       `
       UPDATE users
       SET password_hash = ?
       WHERE id = ?
       `,
-      [passwordHash, id]
+      [
+        passwordHash,
+        id
+      ]
     );
 
     return result.affectedRows > 0;
+  }
+
+  static async updateProfile(
+    id,
+    {
+      fullName,
+      email
+    }
+  ) {
+    const [result] = await pool.query(
+      `
+      UPDATE users
+      SET
+        full_name = ?,
+        email = ?
+      WHERE id = ?
+      `,
+      [
+        fullName,
+        email,
+        id
+      ]
+    );
+
+    if (result.affectedRows === 0) {
+      return null;
+    }
+
+    return this.findById(id);
+  }
+
+  static async searchByAcademicRegistry(
+    academicRegistry
+  ) {
+    const [rows] = await pool.query(
+      `
+      SELECT
+        id,
+        academic_registry,
+        full_name,
+        email,
+        created_at,
+        updated_at
+      FROM users
+      WHERE academic_registry LIKE ?
+      ORDER BY academic_registry ASC
+      LIMIT 20
+      `,
+      [`%${academicRegistry}%`]
+    );
+
+    return rows;
   }
 }
 

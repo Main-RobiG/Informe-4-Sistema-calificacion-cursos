@@ -23,6 +23,9 @@ const postRoutes =
 const commentRoutes =
   require('./routes/comment.routes');
 
+const profileRoutes =
+  require('./routes/profile.routes');
+
 app.use(cors());
 
 app.use(express.json());
@@ -57,6 +60,11 @@ app.use(
 app.use(
   '/api',
   commentRoutes
+);
+
+app.use(
+  '/api/profiles',
+  profileRoutes
 );
 
 app.use((req, res) => {
