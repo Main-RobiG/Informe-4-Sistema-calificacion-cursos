@@ -26,6 +26,9 @@ const commentRoutes =
 const profileRoutes =
   require('./routes/profile.routes');
 
+const approvedCourseRoutes =
+  require('./routes/approvedCourse.routes');
+
 app.use(cors());
 
 app.use(express.json());
@@ -65,6 +68,11 @@ app.use(
 app.use(
   '/api/profiles',
   profileRoutes
+);
+
+app.use(
+  '/api/profiles',
+  approvedCourseRoutes
 );
 
 app.use((req, res) => {
