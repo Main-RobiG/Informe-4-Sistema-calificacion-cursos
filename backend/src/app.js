@@ -17,6 +17,12 @@ const courseRoutes =
 const professorRoutes =
   require('./routes/professor.routes');
 
+const postRoutes =
+  require('./routes/post.routes');
+
+const commentRoutes =
+  require('./routes/comment.routes');
+
 app.use(cors());
 
 app.use(express.json());
@@ -41,6 +47,16 @@ app.use(
 app.use(
   '/api/professors',
   professorRoutes
+);
+
+app.use(
+  '/api/posts',
+  postRoutes
+);
+
+app.use(
+  '/api',
+  commentRoutes
 );
 
 app.use((req, res) => {
