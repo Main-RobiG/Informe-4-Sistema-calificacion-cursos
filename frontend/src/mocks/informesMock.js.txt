@@ -1,0 +1,23 @@
+export const mockInformes = [
+  {
+    id: 1,
+    titulo: "Informe 3 - Estructura de Base de Datos y Backend",
+    estatus: "Completado",
+    estudiante: "Compañero Backend",
+    fecha: "2026-09-10"
+  },
+  {
+    id: 2,
+    titulo: "Informe 4 - Interfaz de Usuario e Integración Frontend",
+    estatus: "En Desarrollo",
+    estudiante: "Tu Nombre",
+    fecha: "2026-09-11"
+  },
+  {
+    id: 3,
+    titulo: "Calificación de Cursos - Módulo Administrador",
+    estatus: "Pendiente",
+    estudiante: "Sistema",
+    fecha: "2026-09-15"
+  }
+];
