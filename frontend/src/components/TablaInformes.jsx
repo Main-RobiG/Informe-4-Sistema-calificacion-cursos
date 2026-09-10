@@ -1,43 +1,83 @@
-// src/components/TablaInformes.jsx
+import { useState, useEffect } from 'react';
+import { getInformes, addComentario } from '../services/api';
 
-export const TablaInformes = ({ informes, cargando }) => {
-  if (cargando) {
-    return <p style={{ textAlign: 'center', padding: '20px' }}>⏳ Cargando datos del sistema...</p>;
-  }
+export const TablaInformes = () => {
+  const [informes, setInformes] = useState([]);
+  const [nuevoComentario, setNuevoComentario] = useState({});
+  const [cargando, setCargando] = useState(true);
+
+  // Cargar informes al montar el componente
+  useEffect(() => {
+    const cargarInformes = async () => {
+      try {
+        const data = await getInformes();
+        setInformes(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error al obtener informes:', error);
+      }
+    };
+
+    cargarInformes();
+  }, []);
+
+  if (cargando) return <p>Cargando informes...</p>;
+
+  // Función para recargar datos manualmente tras enviar un comentario
+  const recargarInformes = async () => {
+    try {
+      const data = await getInformes();
+      setInformes(data);
+    } catch (error) {
+      console.error('Error al recargar informes:', error);
+    }
+  };
+
+  const handleComentarioSubmit = async (id) => {
+    if (!nuevoComentario[id]) return;
+    await addComentario(id, nuevoComentario[id]);
+    setNuevoComentario({ ...nuevoComentario, [id]: '' });
+    await recargarInformes();
+  };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <table border="1" cellPadding="10" cellSpacing="0" style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr style={{ backgroundColor: '#f2f2f2' }}>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Estudiante / Responsable</th>
-            <th>Estatus</th>
-            <th>Fecha</th>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Estudiante</th>
+          <th>Estatus</th>
+          <th>Fecha</th>
+          <th>Comentarios / Dictamen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {informes.map((inf) => (
+          <tr key={inf.id}>
+            <td>{inf.id}</td>
+            <td>{inf.titulo}</td>
+            <td>{inf.estudiante}</td>
+            <td>{inf.estatus}</td>
+            <td>{inf.fecha}</td>
+            <td>
+              <ul>
+                {inf.comentarios?.map((c, i) => (
+                  <li key={i}>{c}</li>
+                ))}
+              </ul>
+              <input
+                type="text"
+                value={nuevoComentario[inf.id] || ''}
+                onChange={(e) =>
+                  setNuevoComentario({ ...nuevoComentario, [inf.id]: e.target.value })
+                }
+                placeholder="Agregar dictamen..."
+              />
+              <button onClick={() => handleComentarioSubmit(inf.id)}>Enviar</button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {informes.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.titulo}</td>
-              <td>{item.estudiante}</td>
-              <td>
-                <span style={{
-                  padding: '4px 8px',
-                  borderRadius: '4px',
-                  backgroundColor: item.estatus === 'Completado' ? '#d4edda' : '#fff3cd',
-                  color: item.estatus === 'Completado' ? '#155724' : '#856404'
-                }}>
-                  {item.estatus}
-                </span>
-              </td>
-              <td>{item.fecha}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 };
