@@ -7,6 +7,9 @@ const CourseModel =
 const ProfessorModel =
   require('../models/professor.model');
 
+const CommentModel =
+  require('../models/comment.model');
+
 class PostService {
   static formatPost(post) {
     if (!post) {
@@ -70,7 +73,35 @@ class PostService {
       throw error;
     }
 
-    return PostService.formatPost(post);
+    const comments =
+      await CommentModel.findByPostId(id);
+
+    const formattedPost =
+      PostService.formatPost(post);
+
+    formattedPost.comments =
+      comments.map((comment) => ({
+        id: comment.id,
+
+        content:
+          comment.content,
+
+        createdAt:
+          comment.created_at,
+
+        author: {
+          id:
+            comment.user_id,
+
+          academicRegistry:
+            comment.academic_registry,
+
+          fullName:
+            comment.user_name
+        }
+      }));
+
+    return formattedPost;
   }
 
   static async create({
