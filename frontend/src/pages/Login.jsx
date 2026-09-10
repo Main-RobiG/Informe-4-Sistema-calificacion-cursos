@@ -1,133 +1,91 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../api/api';
-import '../styles/auth.css';
 
 function Login() {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    academicRegistry: '',
-    password: '',
-  });
-
+  const [academicRegistry, setAcademicRegistry] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setForm((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setError('');
-    setLoading(true);
 
     try {
-      const data = await apiRequest(
-        '/auth/login',
-        {
-          method: 'POST',
-          body: JSON.stringify(form),
-        }
-      );
+      const data = await apiRequest('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          academicRegistry,
+          password,
+        }),
+      });
 
-      localStorage.setItem(
-        'token',
-        data.token
-      );
+      localStorage.setItem('token', data.token);
 
-      localStorage.setItem(
-        'user',
-        JSON.stringify(data.user)
-      );
+      if (data.user) {
+        localStorage.setItem(
+          'user',
+          JSON.stringify(data.user)
+        );
+      }
 
       navigate('/home');
     } catch (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <div className="auth-header">
-          <h1>Sistema de Calificación de Cursos</h1>
-          <p>Facultad de Ingeniería</p>
+    <div style={{ maxWidth: '400px', margin: '60px auto' }}>
+      <h1>Iniciar Sesión</h1>
+
+      {error && (
+        <p style={{ color: 'red' }}>
+          {error}
+        </p>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '15px' }}>
+          <label>Registro Académico</label>
+
+          <input
+            type="text"
+            value={academicRegistry}
+            onChange={(e) =>
+              setAcademicRegistry(e.target.value)
+            }
+            required
+            style={{
+              width: '100%',
+              padding: '8px',
+            }}
+          />
         </div>
 
-        <h2>Iniciar sesión</h2>
+        <div style={{ marginBottom: '15px' }}>
+          <label>Contraseña</label>
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="academicRegistry">
-              Registro Académico
-            </label>
-
-            <input
-              id="academicRegistry"
-              name="academicRegistry"
-              type="text"
-              value={form.academicRegistry}
-              onChange={handleChange}
-              placeholder="Ej. 202012345"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">
-              Contraseña
-            </label>
-
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button
-            className="primary-button"
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? 'Ingresando...'
-              : 'Ingresar'}
-          </button>
-        </form>
-
-        <div className="auth-links">
-          <Link to="/recover-password">
-            ¿Olvidaste tu contraseña?
-          </Link>
-
-          <p>
-            ¿No tienes cuenta?{' '}
-            <Link to="/register">
-              Registrarse
-            </Link>
-          </p>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+            required
+            style={{
+              width: '100%',
+              padding: '8px',
+            }}
+          />
         </div>
-      </div>
+
+        <button type="submit">
+          Ingresar
+        </button>
+      </form>
     </div>
   );
 }

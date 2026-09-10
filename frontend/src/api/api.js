@@ -1,10 +1,8 @@
 const API_URL =
-  import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+  import.meta.env.VITE_API_URL ||
+  'http://localhost:3000/api';
 
-export async function apiRequest(
-  endpoint,
-  options = {}
-) {
+export async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('token');
 
   const headers = {
@@ -28,7 +26,7 @@ export async function apiRequest(
 
   if (!response.ok) {
     throw new Error(
-      data.message || 'Ocurrió un error'
+      data.message || 'Error al comunicarse con el servidor'
     );
   }
 
