@@ -1,20 +1,32 @@
-import { Router } from 'express';
+const express = require('express');
 
-const router = Router();
+const AuthController =
+  require('../controllers/auth.controller');
 
-// POST /api/auth/login
-router.post('/login', (req, res) => {
-  res.status(501).json({ message: 'Pendiente: implementar login' });
-});
+const authMiddleware =
+  require('../middleware/auth.middleware');
 
-// POST /api/auth/register
-router.post('/register', (req, res) => {
-  res.status(501).json({ message: 'Pendiente: implementar registro' });
-});
+const router = express.Router();
 
-// POST /api/auth/recuperar-password
-router.post('/recuperar-password', (req, res) => {
-  res.status(501).json({ message: 'Pendiente: implementar recuperacion de password' });
-});
+router.post(
+  '/register',
+  AuthController.register
+);
 
-export default router;
+router.post(
+  '/login',
+  AuthController.login
+);
+
+router.post(
+  '/recover-password',
+  AuthController.recoverPassword
+);
+
+router.get(
+  '/me',
+  authMiddleware,
+  AuthController.me
+);
+
+module.exports = router;
