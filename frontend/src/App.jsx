@@ -7,6 +7,8 @@ import {
 
 import Login from './pages/Login';
 import Home from './pages/Home';
+import CreatePost from './pages/CreatePost';
+
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -33,8 +35,17 @@ function App() {
         />
 
         <Route
+          path="/posts/new"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="*"
-          element={<Navigate to="/login" replace />}
+          element={<Navigate to="/home" replace />}
         />
       </Routes>
     </BrowserRouter>

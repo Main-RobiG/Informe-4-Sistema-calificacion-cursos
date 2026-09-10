@@ -1,0 +1,151 @@
+.create-post-page {
+  min-height: 100vh;
+  background: #f4f6f8;
+  padding: 30px 20px;
+}
+
+.create-post-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.create-post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.create-post-header h1 {
+  margin-bottom: 5px;
+}
+
+.create-post-header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.create-post-card {
+  background: white;
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 11px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.entity-options {
+  display: flex;
+  gap: 25px;
+  margin-top: 10px;
+}
+
+.radio-option {
+  display: flex !important;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.radio-option input {
+  cursor: pointer;
+}
+
+.character-counter {
+  text-align: right;
+  margin-top: 5px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.catalog-warning {
+  margin-top: 8px;
+  color: #b45309;
+  font-size: 14px;
+}
+
+.success-message {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.primary-button,
+.secondary-button {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #1d4ed8;
+  color: white;
+}
+
+.secondary-button {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.primary-button:disabled,
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .create-post-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .entity-options {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
