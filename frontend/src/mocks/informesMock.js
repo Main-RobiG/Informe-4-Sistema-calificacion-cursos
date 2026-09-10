@@ -1,3 +1,5 @@
+// src/mocks/informesMock.js
+
 export const mockInformes = [
   {
     id: 1,
