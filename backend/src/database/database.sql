@@ -160,3 +160,48 @@ ON courses(name);
 
 CREATE INDEX idx_users_academic_registry
 ON users(academic_registry);
+
+-- =========================================================
+-- DATOS INICIALES: CATEDRÁTICOS
+-- =========================================================
+
+INSERT INTO professors (full_name) VALUES
+('MANUEL HAROLDO CASTILLO REYNA'),
+('SERGIO ARNALDO MENDEZ AGUILAR'),
+('EDGAR RENE ORNELIS HOIL'),
+('JORGE LUIS ALVAREZ MEJIA'),
+('CESAR AUGUSTO FERNANDEZ CACERES'),
+('LUIS FERNANDO ESPINO BARRIOS'),
+('OTTO AMILCAR RODRIGUEZ ACOSTA'),
+('EDGAR RUBEN SABAN RAXON'),
+('FREIRY JAVIER GRAMAJO LOPEZ'),
+('GABRIEL ALEJANDRO DIAZ LOPEZ'),
+('JURGEN ANDONI RAMIREZ RAMÍREZ'),
+('PEDRO PABLO HERNANDEZ RAMIREZ'),
+('ALLAN ALBERTO MORATAYA GÓMEZ'),
+('AIDA ALEJANDRA MANSILLA ORANTES'),
+('SEBASTIAN GOMEZ LAVARREDA'),
+('MIGUEL ANGEL CANCINOS RENDON'),
+('SERGIO LEONEL GOMEZ BRAVO');
+
+-- =========================================================
+-- DATOS INICIALES: CURSOS
+-- =========================================================
+
+INSERT INTO courses (code, name, credits, semester) VALUES
+('0772', 'Estructuras de Datos', 6, 5),
+('0777', 'Organización de Lenguajes y Compiladores 1', 6, 5),
+('0722', 'Teoría de Sistemas 1', 4, 6),
+('0781', 'Organización de Lenguajes y Compiladores 2', 6, 6),
+('0281', 'Sistemas Operativos 1', 6, 7),
+('0724', 'Teoría de Sistemas 2', 4, 7),
+('0774', 'Sistemas de Bases de Datos 1', 5, 7),
+('0779', 'Arquitectura de Computadores y Ensambladores 2', 5, 7),
+('0970', 'Redes de Computadoras 1', 5, 7),
+('0285', 'Sistemas Operativos 2', 4, 8),
+('0775', 'Sistemas de Bases de Datos 2', 4, 8),
+('0975', 'Redes de Computadoras 2', 4, 8),
+('0729', 'Modelación y Simulación 1', 5, 9),
+('0972', 'Inteligencia Artificial 1', 7, 9),
+('0720', 'Modelación y Simulación 2', 6, 10),
+('0968', 'Inteligencia Artificial 2', 5, 10);
