@@ -22,3 +22,36 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Dependencias
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Variables de entorno
+.env
+backend/.env
+frontend/.env
+.env.local
+
+
+# Builds
+dist/
+frontend/dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Vite 
+.vite/
+
+# Editor / OS
+.vscode/
+.DS_Store
