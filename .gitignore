@@ -7,10 +7,13 @@ frontend/node_modules/
 .env
 backend/.env
 frontend/.env
+.env.local
+
 
 # Builds
 dist/
 frontend/dist/
+build/
 
 # Logs
 *.log
@@ -20,3 +23,10 @@ npm-debug.log*
 .DS_Store
 .idea/
 .vscode/
+
+# Vite 
+.vite/
+
+# Editor / OS
+.vscode/
+.DS_Store
