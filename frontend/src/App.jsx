@@ -6,8 +6,12 @@ import {
 } from 'react-router-dom';
 
 import Login from './pages/Login';
+import Register from './pages/Register';
+import RecoverPassword from './pages/RecoverPassword';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
+import PostDetail from './pages/PostDetail';
+import Profile from './pages/Profile';
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -20,10 +24,9 @@ function App() {
           element={<Navigate to="/login" replace />}
         />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/recover-password" element={<RecoverPassword />} />
 
         <Route
           path="/home"
@@ -44,9 +47,33 @@ function App() {
         />
 
         <Route
-          path="*"
-          element={<Navigate to="/home" replace />}
+          path="/posts/:id"
+          element={
+            <ProtectedRoute>
+              <PostDetail />
+            </ProtectedRoute>
+          }
         />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile/:academicRegistry"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </BrowserRouter>
   );
